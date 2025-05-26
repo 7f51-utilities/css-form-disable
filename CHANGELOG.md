@@ -1,3 +1,12 @@
+# 1.0.0-beta.1 (2025-05-26)
+
+
+### Features
+
+* add build tools and JavaScript integration ([bf3acbc](https://github.com/7f51-utilities/css-form-disable/commit/bf3acbc2cfef8f2c3c250fe93ed2fb744173bc26))
+* add CSS form validation styling system ([a035fd8](https://github.com/7f51-utilities/css-form-disable/commit/a035fd8f7543c44530e200a0e3ae16c833c4cd9e))
+* initialize CSS form validation library package ([7845c96](https://github.com/7f51-utilities/css-form-disable/commit/7845c96a86d8f1d2edf3353f3c9734f003991bce))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

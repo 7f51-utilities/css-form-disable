@@ -1,6 +1,6 @@
 {
     "name": "@7f51-utilities/css-form-disable",
-    "version": "1.0.0",
+    "version": "1.0.0-beta.1",
     "description": "Framework-agnostic CSS form validation with automatic submit button disabling. Works with Vanilla JS, Vue, React, or any framework.",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
