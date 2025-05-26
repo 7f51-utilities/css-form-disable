@@ -1,0 +1,94 @@
+{
+    "name": "@7f51-utilities/css-form-disable",
+    "version": "1.0.0",
+    "description": "Framework-agnostic CSS form validation with automatic submit button disabling. Works with Vanilla JS, Vue, React, or any framework.",
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "types": "types/index.d.ts",
+    "style": "src/styles/css/form-disable.css",
+    "sass": "src/styles/scss/index.scss",
+    "exports": {
+        ".": {
+            "types": "./types/index.d.ts",
+            "import": "./dist/index.esm.js",
+            "require": "./dist/index.js",
+            "style": "./src/styles/css/form-disable.css"
+        },
+        "./css": "./src/styles/css/form-disable.css",
+        "./scss": "./src/styles/scss/index.scss",
+        "./purge": "./src/build/purge-scanner.js",
+        "./vite": "./src/build/vite-plugin.js"
+    },
+    "files": [
+        "dist",
+        "src/styles/scss",
+        "src/styles/css",
+        "src/build",
+        "types",
+        "sass-build.config.js",
+        "LICENSE",
+        "CHANGELOG.md",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "npm run build:css && npm run build:dist",
+        "build:css": "node -e \"const SassBuildTool = require('./src/build/sass-config'); new SassBuildTool().build()\"",
+        "build:dist": "node tools/build-dist.js",
+        "build:purge": "node tools/purge.js",
+        "purge": "node tools/purge.js",
+        "watch": "chokidar 'src/styles/scss/**/*.scss' -c 'npm run build:css'",
+        "dev": "npm run watch",
+        "test": "echo \"Test files available in tests/: vanilla-example.html (any framework), test.html (CSS), vue-test.html (Vue integration)\"",
+        "serve": "echo \"Use: python -m http.server 8000 or similar to serve test files from tests/ directory\"",
+        "prepublishOnly": "npm run build",
+        "publish-check": "npm run build && npm publish --dry-run",
+        "release": "semantic-release"
+    },
+    "devDependencies": {
+        "sass": "^1.69.0",
+        "glob": "^10.3.0",
+        "chokidar-cli": "^3.0.0",
+        "@semantic-release/changelog": "^6.0.3",
+        "@semantic-release/commit-analyzer": "^12.0.0",
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/github": "^10.0.3",
+        "@semantic-release/npm": "^12.0.0",
+        "@semantic-release/release-notes-generator": "^12.0.0",
+        "semantic-release": "^23.0.8"
+    },
+    "peerDependencies": {
+        "vue": "^3.0.0"
+    },
+    "peerDependenciesMeta": {
+        "vue": {
+            "optional": true
+        }
+    },
+    "keywords": [
+        "css",
+        "form",
+        "validation",
+        "vue",
+        "react",
+        "vanilla-js",
+        "framework-agnostic",
+        "submit-button",
+        "disable",
+        "scss",
+        "accessibility",
+        "ux"
+    ],
+    "author": "7f51-utilities",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/7f51-utilities/css-form-disable.git"
+    },
+    "bugs": {
+        "url": "https://github.com/7f51-utilities/css-form-disable/issues"
+    },
+    "homepage": "https://github.com/7f51-utilities/css-form-disable#readme",
+    "publishConfig": {
+        "access": "public"
+    }
+}
