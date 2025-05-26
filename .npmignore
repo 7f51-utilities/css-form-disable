@@ -1,0 +1,62 @@
+# Development and test files
+tests/
+demo/
+tools/
+node_modules/
+coverage/
+*.log
+.git/
+.gitignore
+
+# Source maps (optional - you might want to include these)
+# *.map
+
+# Config files not needed in published package
+.eslintrc*
+.prettierrc*
+tsconfig.json
+vite.config.js
+jest.config.js
+.babelrc*
+webpack.config.js
+
+# Documentation drafts
+NOTES.md
+TODO.md
+DEVELOPMENT.md
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env*
+
+# Build artifacts not for distribution
+build/
+temp/
+tmp/
+
+# Test artifacts
+test-results/
+coverage/
+
+# Package artifacts
+*.tgz
+package-lock.json
+yarn.lock
+
+# Status and summary files
+STATUS.md
+PACKAGE_SUMMARY.md
+SEMANTIC_RELEASE.md
+PUBLISHING.md
+
+# GitHub workflows
+.github/
