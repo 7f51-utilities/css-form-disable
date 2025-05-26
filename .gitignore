@@ -6,10 +6,13 @@ yarn-error.log*
 package-lock.json
 yarn.lock
 
-# Build outputs
+# Build outputs (exclude source build tools in src/build/)
 dist/
-build/
+/build/
 *.tgz
+
+# Keep source build tools
+!src/build/
 
 # Environment variables
 .env
@@ -107,3 +110,8 @@ coverage/
 
 # Parcel cache
 .parcel-cache
+
+# Semantic release
+.releaserc*
+release.config.*
+!release.config.cjs
