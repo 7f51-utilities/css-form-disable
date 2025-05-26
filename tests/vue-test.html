@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Form Disable Plugin Test</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="src/styles/css/form-disable.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        input,
+        button,
+        select {
+            margin: 10px 5px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-width: 200px;
+        }
+
+        button {
+            background: #007cba;
+            color: white;
+            cursor: pointer;
+            min-width: auto;
+            padding: 10px 20px;
+        }
+
+        .submit-btn {
+            background: #28a745;
+        }
+
+        .form-submit {
+            background: #dc3545;
+        }
+
+        .invalid {
+            border-color: red;
+        }
+
+        .valid {
+            border-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Vue Form Disable Plugin Test</h1>
+
+        <div class="form-container">
+            <h2>Registration Form</h2>
+            <form @submit.prevent="submitForm" novalidate>
+                <div>
+                    <input v-model="form.email" type="email" required placeholder="Email address"
+                        :class="{ invalid: !isEmailValid, valid: isEmailValid && form.email }">
+                </div>
+                <div>
+                    <input v-model="form.password" type="password" required minlength="6"
+                        placeholder="Password (6+ chars)"
+                        :class="{ invalid: !isPasswordValid, valid: isPasswordValid && form.password }">
+                </div>
+                <div>
+                    <input v-model="form.age" type="number" min="18" max="120" required placeholder="Age (18-120)"
+                        :class="{ invalid: !isAgeValid, valid: isAgeValid && form.age }">
+                </div>
+                <div>
+                    <select v-model="form.country" required :class="{ invalid: !form.country, valid: form.country }">
+                        <option value="">Select Country</option>
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="ca">Canada</option>
+                        <option value="au">Australia</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit">Register</button>
+                    <button type="submit" class="submit-btn">Alt Submit</button>
+                    <button type="submit" class="form-submit">Form Submit</button>
+                    <button type="submit" class="no-disable">Always Enabled</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Contact Form (with HTML5 validation)</h2>
+            <form @submit.prevent="submitContact">
+                <div>
+                    <input v-model="contact.name" type="text" required placeholder="Full name">
+                </div>
+                <div>
+                    <input v-model="contact.email" type="email" required placeholder="Email address">
+                </div>
+                <div>
+                    <input v-model="contact.phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                        placeholder="Phone (123-456-7890)" title="Format: 123-456-7890">
+                </div>
+                <div>
+                    <button type="submit">Send Message</button>
+                    <button type="button" @click="resetContact">Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Form Status</h2>
+            <p><strong>Form Valid:</strong> {{ isFormValid }}</p>
+            <p><strong>Contact Valid:</strong> {{ isContactValid }}</p>
+            <p><strong>Email Valid:</strong> {{ isEmailValid }}</p>
+            <p><strong>Password Valid:</strong> {{ isPasswordValid }}</p>
+            <p><strong>Age Valid:</strong> {{ isAgeValid }}</p>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, reactive, computed } = Vue;
+
+        createApp({
+            setup() {
+                const form = reactive({
+                    email: '',
+                    password: '',
+                    age: '',
+                    country: ''
+                });
+
+                const contact = reactive({
+                    name: '',
+                    email: '',
+                    phone: ''
+                });
+
+                const isEmailValid = computed(() => {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return form.email && emailRegex.test(form.email);
+                });
+
+                const isPasswordValid = computed(() => {
+                    return form.password && form.password.length >= 6;
+                });
+
+                const isAgeValid = computed(() => {
+                    const age = parseInt(form.age);
+                    return !isNaN(age) && age >= 18 && age <= 120;
+                });
+
+                const isFormValid = computed(() => {
+                    return isEmailValid.value &&
+                        isPasswordValid.value &&
+                        isAgeValid.value &&
+                        form.country;
+                });
+
+                const isContactValid = computed(() => {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+
+                    return contact.name &&
+                        contact.email &&
+                        emailRegex.test(contact.email) &&
+                        (!contact.phone || phoneRegex.test(contact.phone));
+                });
+
+                const submitForm = () => {
+                    if (isFormValid.value) {
+                        alert('Registration submitted successfully!');
+                        console.log('Form data:', form);
+                    } else {
+                        alert('Please fix form errors before submitting');
+                    }
+                };
+
+                const submitContact = () => {
+                    alert('Contact form submitted!');
+                    console.log('Contact data:', contact);
+                };
+
+                const resetContact = () => {
+                    Object.assign(contact, {
+                        name: '',
+                        email: '',
+                        phone: ''
+                    });
+                };
+
+                return {
+                    form,
+                    contact,
+                    isEmailValid,
+                    isPasswordValid,
+                    isAgeValid,
+                    isFormValid,
+                    isContactValid,
+                    submitForm,
+                    submitContact,
+                    resetContact
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

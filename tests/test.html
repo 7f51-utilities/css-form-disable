@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Form Disable Test</title>
+    <link rel="stylesheet" href="src/styles/css/form-disable.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        input,
+        button {
+            margin: 10px 0;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #007cba;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #ccc;
+        }
+
+        .submit-btn {
+            background: #28a745;
+        }
+
+        .form-submit {
+            background: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Vue Form Disable Package Test</h1>
+
+    <h2>1. Basic Form (should disable when invalid)</h2>
+    <form>
+        <input type="email" required placeholder="Enter valid email">
+        <input type="number" min="1" max="10" placeholder="Number 1-10">
+        <br>
+        <button type="submit">Submit Button</button>
+        <input type="submit" value="Submit Input">
+    </form>
+
+    <h2>2. Form with novalidate (should never disable)</h2>
+    <form novalidate>
+        <input type="email" required placeholder="Enter any email">
+        <input type="number" min="1" max="10" placeholder="Any number">
+        <br>
+        <button type="submit">Submit Button (novalidate)</button>
+    </form>
+
+    <h2>3. Form with custom classes (should disable when invalid)</h2>
+    <form>
+        <input type="text" required placeholder="Required text">
+        <br>
+        <button class="submit-btn">Custom Submit Button</button>
+        <button class="form-submit">Form Submit Button</button>
+    </form>
+
+    <h2>4. Form with exception class (button should always work)</h2>
+    <form>
+        <input type="email" required placeholder="Enter valid email">
+        <br>
+        <button type="submit">Normal Submit</button>
+        <button type="submit" class="no-disable">Exception Button</button>
+        <button type="submit" class="ndsbl">Short Exception</button>
+    </form>
+
+    <h2>5. Logout form (should always work)</h2>
+    <form action="/logout" method="post">
+        <input type="email" required placeholder="Invalid email won't matter">
+        <br>
+        <button type="submit">Logout Button</button>
+    </form>
+
+    <script>
+        // Add some visual feedback
+        document.querySelectorAll('form').forEach((form, index) => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert(`Form ${index + 1} submitted!`);
+            });
+        });
+
+        // Show validation state
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.validity.valid) {
+                    input.style.borderColor = 'green';
+                } else {
+                    input.style.borderColor = 'red';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

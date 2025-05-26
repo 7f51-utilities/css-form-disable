@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Advanced Demo</title>
+</head>
+
+<body>
+    <form wire:submit.prevent="saveData">
+        <input type="email" required>
+        <button wire:click="validate" class="submit-btn">Livewire Submit</button>
+        <button data-submit="true" class="form-submit">Data Submit</button>
+    </form>
+
+    <form class="contact-form">
+        <input type="text" required>
+        <button class="submit-button">Contact Submit</button>
+        <a href="#" class="submit-link">Submit Link</a>
+    </form>
+</body>
+
+</html>

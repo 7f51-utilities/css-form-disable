@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla JS Example - CSS Form Disable</title>
+    <link rel="stylesheet" href="src/styles/css/form-disable.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        input:invalid {
+            border-color: #ef4444;
+        }
+        
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background: #2563eb;
+        }
+        
+        /* This button will be automatically disabled by CSS when form is invalid */
+        button:disabled,
+        button[style*="pointer-events: none"] {
+            opacity: 0.5;
+            background: #9ca3af !important;
+        }
+        
+        .info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .framework-examples {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e1e5e9;
+        }
+        
+        .code {
+            background: #f8fafc;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Framework-Agnostic CSS Form Disable</h1>
+    
+    <div class="info">
+        <strong>Pure CSS Solution:</strong> This form uses only CSS to automatically disable the submit button when the form contains invalid fields. No JavaScript required!
+    </div>
+    
+    <h2>Try the Form</h2>
+    <p>The submit button will be automatically disabled until all fields are valid:</p>
+    
+    <form id="testForm">
+        <div class="form-group">
+            <label for="email">Email (required)</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password (min 8 characters)</label>
+            <input type="password" id="password" name="password" required minlength="8" placeholder="Enter password">
+        </div>
+        
+        <div class="form-group">
+            <label for="age">Age (18-120)</label>
+            <input type="number" id="age" name="age" min="18" max="120" required placeholder="Enter your age">
+        </div>
+        
+        <div class="form-group">
+            <label for="website">Website URL</label>
+            <input type="url" id="website" name="website" placeholder="https://example.com (optional)">
+        </div>
+        
+        <button type="submit">Submit Form</button>
+    </form>
+    
+    <div class="framework-examples">
+        <h2>🚀 Works with Any Framework</h2>
+        
+        <h3>Vanilla HTML/JS</h3>
+        <div class="code">
+&lt;link rel="stylesheet" href="@7f51-utilities/css-form-disable/css"&gt;
+
+&lt;form&gt;
+  &lt;input type="email" required&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt; &lt;!-- Auto-disabled --&gt;
+&lt;/form&gt;
+        </div>
+        
+        <h3>React</h3>
+        <div class="code">
+import '@7f51-utilities/css-form-disable/css'
+
+function MyForm() {
+  return (
+    &lt;form&gt;
+      &lt;input type="email" required /&gt;
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  )
+}
+        </div>
+        
+        <h3>Vue</h3>
+        <div class="code">
+import VueFormDisable from '@7f51-utilities/css-form-disable'
+
+app.use(VueFormDisable, {
+  customSelectors: ['.btn-primary'],
+  theme: 'minimal'
+})
+        </div>
+        
+        <h3>Laravel Blade</h3>
+        <div class="code">
+@vite(['resources/css/app.css'])
+{{-- Include: @import '@7f51-utilities/css-form-disable/css'; --}}
+
+&lt;form&gt;
+  &lt;input type="email" required&gt;
+  &lt;button type="submit" class="btn-primary"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+        </div>
+    </div>
+    
+    <script>
+        // Optional: Add some JavaScript to show form validation state
+        const form = document.getElementById('testForm')
+        const button = form.querySelector('button[type="submit"]')
+        
+        form.addEventListener('input', () => {
+            const isValid = form.checkValidity()
+            console.log('Form valid:', isValid)
+        })
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            alert('Form submitted! (This is just a demo)')
+        })
+    </script>
+</body>
+</html>
