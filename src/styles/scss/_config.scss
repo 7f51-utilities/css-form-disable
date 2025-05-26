@@ -1,0 +1,38 @@
+/* filepath: src/scss/_config.scss */
+// Default configuration - override these in your project
+$form-disable-classes: (
+    submit: '.submit',
+    submit-btn: '.submit-btn',
+    submit-button: '.submit-button',
+    submit-link: '.submit-link',
+    form-submit: '.form-submit',
+    wire-validate: '[wire\\:click*="validate"]',
+    wire-submit: '[wire\\:click*="submit"]',
+    wire-save: '[wire\\:click*="save"]',
+    role-button: '[role="button"][data-submit]',
+    data-submit: '[data-submit]'
+    ) !default;
+
+$form-disable-exceptions: (
+    no-disable: '.no-disable',
+    ndsbl: '.ndsbl',
+    ignore: '.form-disable-ignore'
+    ) !default;
+
+$form-disable-exception-forms: (
+    logout: 'form[action*="logout"]',
+    signout: 'form[action*="signout"]',
+    sign-out: 'form[action*="sign-out"]',
+    novalidate: 'form[novalidate]'
+    ) !default;
+
+// Feature flags
+$form-disable-respect-novalidate: true !default;
+$form-disable-include-wire: true !default;
+$form-disable-include-role: true !default;
+$form-disable-include-data-attrs: true !default;
+
+// Build options
+$form-disable-generate-css: true !default;
+$form-disable-minify: false !default;
+$form-disable-purge-enabled: false !default;

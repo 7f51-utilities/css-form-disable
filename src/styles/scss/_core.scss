@@ -1,0 +1,52 @@
+/* filepath: src/scss/_core.scss */
+@import 'config';
+
+// Base disable styles
+%disable-styles {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+
+    &>* {
+        pointer-events: none !important;
+        cursor: not-allowed !important;
+    }
+}
+
+// Core form disabling logic
+@mixin generate-form-disable-rules() {
+    @if $form-disable-respect-novalidate {
+        form:has(*:invalid, *:out-of-range):not([novalidate]) {
+
+            button[type="submit"],
+            button:not([type]),
+            input[type="submit"] {
+                @extend %disable-styles;
+            }
+        }
+    }
+
+    @else {
+        form:has(*:invalid, *:out-of-range) {
+
+            button[type="submit"],
+            button:not([type]),
+            input[type="submit"] {
+                @extend %disable-styles;
+            }
+        }
+    }
+}
+
+// Generate exception forms
+@mixin generate-exception-forms() {
+    @each $key, $value in $form-disable-exception-forms {
+        #{$value} {
+
+            button,
+            input[type="submit"] {
+                pointer-events: auto !important;
+                cursor: auto !important;
+            }
+        }
+    }
+}

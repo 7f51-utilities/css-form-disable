@@ -1,0 +1,39 @@
+/* filepath: src/styles/_purge.scss */
+
+// Utility to generate only used classes based on a list
+@mixin generate-only-used-classes($used-classes) {
+    $filtered-classes: (
+    );
+
+@each $class in $used-classes {
+    @if map-has-key($form-disable-classes, $class) {
+        $class-selector: map-get($form-disable-classes, $class);
+        $filtered-classes: append($filtered-classes, $class-selector, comma);
+    }
+}
+
+@if length($filtered-classes)>0 {
+    @if $form-disable-respect-novalidate {
+        :root:not(:has(form[novalidate])):has(*:invalid, *:out-of-range) {
+            #{$filtered-classes} {
+                @extend %disable-styles;
+            }
+        }
+    }
+
+    @else {
+        :root:has(*:invalid, *:out-of-range) {
+            #{$filtered-classes} {
+                @extend %disable-styles;
+            }
+        }
+    }
+}
+}
+
+// Function to validate if class exists in your HTML (requires custom implementation)
+@function class-exists-in-project($class-name) {
+    // This would need to be implemented with a build tool
+    // For now, return true by default
+    @return true;
+}

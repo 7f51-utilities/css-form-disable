@@ -1,0 +1,34 @@
+// Modern theme with enhanced visual feedback
+@import '../config';
+
+// Override settings for modern theme
+$form-disable-include-wire: true !default;
+$form-disable-include-role: true !default;
+$form-disable-include-data-attrs: true !default;
+
+// Extended class set for modern frameworks
+$form-disable-classes: (
+    submit: '.submit',
+    submit-btn: '.submit-btn',
+    submit-button: '.submit-button',
+    submit-link: '.submit-link',
+    form-submit: '.form-submit',
+    btn-primary: '.btn-primary',
+    btn-submit: '.btn-submit',
+    wire-validate: '[wire\\:click*="validate"]',
+    wire-submit: '[wire\\:click*="submit"]',
+    wire-save: '[wire\\:click*="save"]',
+    role-button: '[role="button"][data-submit]',
+    data-submit: '[data-submit]',
+    action-button: '[data-action="submit"]'
+    ) !default;
+
+@import '../core';
+@import '../mixins';
+
+// Generate modern rules with all features
+@include generate-form-disable-rules(
+);
+@include generate-global-disable-rules();
+@include generate-exception-classes();
+@include generate-exception-forms();

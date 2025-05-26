@@ -1,0 +1,23 @@
+// Minimal theme - just basic functionality
+@import '../config';
+
+// Override default settings for minimal theme
+$form-disable-include-wire: false !default;
+$form-disable-include-role: false !default;
+$form-disable-include-data-attrs: false !default;
+
+// Minimal class set
+$form-disable-classes: (
+    submit: '.submit',
+    form-submit: '.form-submit'
+    ) !default;
+
+@import '../core';
+@import '../mixins';
+
+// Generate minimal rules
+@include generate-form-disable-rules(
+);
+@include generate-global-disable-rules();
+@include generate-exception-classes();
+@include generate-exception-forms();

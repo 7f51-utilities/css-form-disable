@@ -1,0 +1,12 @@
+/* filepath: src/scss/index.scss */
+@import 'config';
+@import 'core';
+@import 'mixins';
+
+// Generate all rules if not using purge mode
+@if not $form-disable-purge-enabled {
+    @include generate-form-disable-rules();
+    @include generate-global-disable-rules();
+    @include generate-exception-classes();
+    @include generate-exception-forms();
+}

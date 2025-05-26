@@ -1,0 +1,72 @@
+/* filepath: src/scss/_mixins.scss */
+@use 'sass:list';
+@use 'sass:map';
+@import 'config';
+
+// Utility function to filter enabled classes
+@function get-enabled-classes() {
+    $class-list: (
+    );
+
+@each $key, $value in $form-disable-classes {
+    $include: true;
+
+    @if $key =='wire-validate' or $key =='wire-submit' or $key =='wire-save' {
+        $include: $form-disable-include-wire;
+    }
+
+    @else if $key =='role-button' {
+        $include: $form-disable-include-role;
+    }
+
+    @else if $key =='data-submit' {
+        $include: $form-disable-include-data-attrs;
+    }
+
+    @if $include {
+        $class-list: list.append($class-list, $value, comma);
+    }
+}
+
+@return $class-list;
+}
+
+// Generate global disable rules
+@mixin generate-global-disable-rules($custom-classes: null) {
+    $classes: if($custom-classes, $custom-classes, get-enabled-classes());
+
+    @if list.length($classes)>0 {
+        @if $form-disable-respect-novalidate {
+            :root:not(:has(form[novalidate])):has(*:invalid, *:out-of-range) {
+                #{$classes} {
+                    @extend %disable-styles;
+                }
+            }
+        }
+
+        @else {
+            :root:has(*:invalid, *:out-of-range) {
+                #{$classes} {
+                    @extend %disable-styles;
+                }
+            }
+        }
+    }
+}
+
+// Generate exception classes
+@mixin generate-exception-classes($custom-exceptions: null) {
+    $exceptions: if($custom-exceptions, $custom-exceptions, map.values($form-disable-exceptions));
+
+    @if list.length($exceptions)>0 {
+        #{$exceptions} {
+            pointer-events: auto !important;
+            cursor: auto !important;
+
+            &>* {
+                pointer-events: auto !important;
+                cursor: auto !important;
+            }
+        }
+    }
+}
